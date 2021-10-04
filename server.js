@@ -3,7 +3,7 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
-const mongoose = require ('mongoose');
+const mongoose = require('mongoose');
 const session = require('express-session');
 const methodOverride = require('method-override');
 
@@ -23,8 +23,8 @@ const methodOverride = require('method-override');
 // Fix Depreciation Warnings from Mongoose
 // May or may not need these depending on your Mongoose version
 mongoose.connect(process.env.DATABASE_URL, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 // Error / success
@@ -42,12 +42,12 @@ db.on('disconnected', () => console.log('mongo disconnected'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(
-    session({
-        secret: process.env.SECRET,
-        resave: false,
-        saveUninitialized: false
-    }));//requires express session
-    
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false
+  }));//requires express session
+
 app.use(methodOverride('_method'));
 
 
@@ -59,13 +59,17 @@ const userController = require('./controllers/users');
 app.use('/users', userController);
 
 const sessionsController = require('./controllers/sessions');
-    app.use('/sessions', sessionsController);
+app.use('/sessions', sessionsController);
 
-    // Routes / Controllers
+const toolController = require('./controllers/tools');
+app.use('/tools', toolController);
+
+
+// Routes / Controllers
 app.get('/', (req, res) => {
-	res.render('index.ejs', {
-		currentUser: req.session.currentUser
-	});
+  res.render('index.ejs', {
+    currentUser: req.session.currentUser
+  });
 });
 //___________________
 //Listener
