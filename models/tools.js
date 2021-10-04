@@ -6,11 +6,12 @@ const Schema = mongoose.Schema;
 const toolSchema = Schema({
     num: { type: String, required: true },
     name: { type: String, required: true },
+    brand: { type: String, required: true },
     description: { type: String, required: true },
     dateCal: { type: String, required: true },
     dateDue: { type: String, required: true },
     inspector: { type: String, required: true },
-    img: {type: String, required: false}
+    img: { type: String, required: false }
 });
 
 // User Model
