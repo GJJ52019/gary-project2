@@ -11,11 +11,11 @@ const toolSchema = Schema({
     dateCal: { type: String, required: true },
     dateDue: { type: String, required: true },
     inspector: { type: String, required: true },
-    img: { type: String, required: false }
+    // img: { type: String, required: false }
 });
 
-// User Model
+// tool Model
 const Tool = mongoose.model('Tool', toolSchema);
 
-// Export User Model
+// Export tool Model
 module.exports = Tool;

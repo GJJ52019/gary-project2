@@ -1,8 +1,9 @@
 //Dependencies
 //___________________
+require('dotenv').config();
 const express = require('express');
 const app = express();
-require('dotenv').config();
+
 const mongoose = require('mongoose');
 const session = require('express-session');
 const methodOverride = require('method-override');
@@ -17,7 +18,7 @@ const methodOverride = require('method-override');
 //Database
 //___________________
 // How to connect to the database either via heroku or locally
-// const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI;
 
 // Connect to Mongo &
 // Fix Depreciation Warnings from Mongoose
@@ -33,12 +34,31 @@ db.on('error', (err) => console.log(err.message + ' is mongod not running?'));
 db.on('connected', () => console.log('mongo connected'));
 db.on('disconnected', () => console.log('mongo disconnected'));
 
+
+//___________________
+// Controllers
+//___________________
+
+const userController = require('./controllers/users');
+app.use('/users', userController);
+
+const sessionsController = require('./controllers/sessions');
+app.use('/sessions', sessionsController);
+
+const toolController = require('./controllers/tools');
+app.use('/tools', toolController);
+
+
+const Tool = require("./models/tools");
+
+
+
 //___________________
 //Middleware
 //___________________
 
 //use public folder for static assets
-// app.use(express.static('public'));
+app.use(express.static('public'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -51,26 +71,20 @@ app.use(
 app.use(methodOverride('_method'));
 
 
-//___________________
-// Routes
-//___________________
-//localhost:3000
-const userController = require('./controllers/users');
-app.use('/users', userController);
-
-const sessionsController = require('./controllers/sessions');
-app.use('/sessions', sessionsController);
-
-const toolController = require('./controllers/tools');
-app.use('/tools', toolController);
 
 
-// Routes / Controllers
+
+//Routes 
 app.get('/', (req, res) => {
+  Tool.find({}, (error, allTools) => {
   res.render('index.ejs', {
-    currentUser: req.session.currentUser
+   currentUser: req.session.currentUser,
+   tools: allTools,
+  });
   });
 });
+
+
 //___________________
 //Listener
 //___________________

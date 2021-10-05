@@ -11,6 +11,18 @@
 <body>
     <%- include('./partials/nav.ejs')  %>
 	<h1>Home</h1>
+	<ul>
+		<% tools.forEach(tool=> { %>
+			<li>
+				<a href="/tools/<%=tool._id; %>">
+					<%=tool.name; %>
+				</a>
+				<form action="/tools/<%= tool.id %>?_method=DELETE" method="POST" style="display: inline; margin-left: 16px;">
+					<input type="submit" value="DELETE"/>
+				</form>
+				<a href="/tools/<%=tool._id %>/edit">Edit</a>
+			</li>
+			<% }) %>
 
     
 </body>
