@@ -28,17 +28,18 @@ toolRouter.get('/seed', (req, res) => {
 toolRouter.get('/', (req, res) => {
 	Tool.find({}, (error, allTools) => {
 		res.render('index.ejs', {
+			currentUser: req.session.currentUser,
 			tools: allTools,
 		});
 	});
 });
 
 
-
-
 // New (tool page)
+
 toolRouter.get('/new', (req, res) => {
 	res.render('tools/new.ejs', {
+		currentUser: req.session.currentUser,
 		currentTool: req.session.currentTool
 	});
 });
@@ -54,7 +55,6 @@ toolRouter.delete('/:id', (req, res) => {
 // UPDATE
 toolRouter.put('/:id', (req, res) => {
 
-    
 	Tool.findByIdAndUpdate(req.params.id, req.body, {
 		new: true
 	}, (error, updatedTool) => {
@@ -64,15 +64,21 @@ toolRouter.put('/:id', (req, res) => {
 
 //create
 toolRouter.post('/', (req, res) => {
-	Tool.create(req.body, (error, createdTool) => {
-        res.redirect('/tools');
-    });
+	Tool.create(req.body)
+	.then((newTool)=>{
+		console.log(newTool);
+		res.redirect('/tools');
+	})
+	// Tool.create(req.body, (error, createdTool) => {
+    //     res.redirect('/tools');
+    // });
 });
 
 // EDIT
 toolRouter.get('/:id/edit', (req, res) => {
 	Tool.findById(req.params.id, (error, foundTool) => {
 		res.render('tools/edit.ejs', {
+			currentUser: req.session.currentUser,
 			tool: foundTool
 		});
 	});
@@ -82,6 +88,7 @@ toolRouter.get('/:id/edit', (req, res) => {
 toolRouter.get('/:id', (req, res) => {
 	Tool.findById(req.params.id, (err, foundTool) => {
 		res.render('tools/show.ejs', {
+			currentUser: req.session.currentUser,
 			tool: foundTool,
 		});
 	});

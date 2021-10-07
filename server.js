@@ -7,12 +7,31 @@ const app = express();
 const mongoose = require('mongoose');
 const session = require('express-session');
 const methodOverride = require('method-override');
-
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 //___________________
 //Port
 //___________________
 // Allow use of Heroku's port or your own local port, depending on the environment
-// const PORT = process.env.PORT || 3000;
+ const PORT = process.env.PORT || 3000;
+
+//___________________
+//Middleware
+//___________________
+
+//use public folder for static assets
+app.use(express.static('public'));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false
+  }));//requires express session
+
+app.use(methodOverride('_method'));
+
 
 //___________________
 //Database
@@ -34,7 +53,8 @@ db.on('error', (err) => console.log(err.message + ' is mongod not running?'));
 db.on('connected', () => console.log('mongo connected'));
 db.on('disconnected', () => console.log('mongo disconnected'));
 
-
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 //___________________
 // Controllers
 //___________________
@@ -53,22 +73,7 @@ const Tool = require("./models/tools");
 
 
 
-//___________________
-//Middleware
-//___________________
 
-//use public folder for static assets
-app.use(express.static('public'));
-
-app.use(express.urlencoded({ extended: true }));
-app.use(
-  session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: false
-  }));//requires express session
-
-app.use(methodOverride('_method'));
 
 
 
@@ -88,5 +93,5 @@ app.get('/', (req, res) => {
 //___________________
 //Listener
 //___________________
-const PORT = process.env.PORT;
+// const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`server is listening on port: ${PORT}`));
