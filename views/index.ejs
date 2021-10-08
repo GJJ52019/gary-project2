@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Inspection Cal Log</title>
-	<% include('./partials/style.ejs')%>
-</head>
 
+<%- include('./partials/head.ejs') %>
 <body>
     <%- include('./partials/nav.ejs')  %>
 	<h1>Home</h1>
 	<a href="/tools/new">New</a>
+
 	<ul>
 		<% tools.forEach(tool=> { %>
 			<li>
-				<a href="/tools/<%=tool._id; %>">
-					<%=tool.name; %>
-				</a>
+				<strong>ID NUM: </strong><%=tool.num%> || <a href="/tools/<%=tool._id; %>">
+					 <%=tool.name; %> 
+				</a> || CalDue: <%= tool.dateDue%>
 				<%if (currentUser){ %>
 				<form action="/tools/<%= tool.id %>?_method=DELETE" method="POST" style="display: inline; margin-left: 16px;">
 					<input type="submit" value="DELETE"/>

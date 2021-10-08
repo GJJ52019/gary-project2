@@ -1,24 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Edit tool page</title>
-		
-	</head>
+	<%- include('../partials/head.ejs') %>
 	<body>
         <%- include('../partials/nav.ejs')  %>
 		<h1>Edit Tool</h1>
 		<form form action="/tools/<%=tool._id%>?_method=PUT" method="POST">
-			Num: <input type="text" name="num" /><br />
-			Name: <input type="text" name="name" /><br />
-            Brand: <input type="text" name="brand" /><br />
-			Description: <input type="textarea" name="descritpion" /><br />
-            Date Cal'd: <input type="text" name="dateCal" /><br />
-			Date Due: <input type="text" name="dateDue" /><br />
-            Inspector: <input type="text" name="inspector" /><br />
-			<input type="submit" name="" value="Add Tool" />
+			Num: <input type="text" name="num " value="<%=tool.num%>" /><br />
+			Name: <input type="text" name="name" value="<%=tool.name%>"/><br />
+            Brand: <input type="text" name="brand" value="<%=tool.brand%>" /><br />
+			Description: <input type="textarea" name="descritpion" value="<%=tool.description%>"/><br />
+            Date Cal'd: <input type="text" name="dateCal" value="<%=tool.dateCal%>" /><br />
+			Date Due: <input type="text" name="dateDue" value="<%=tool.dateDue%>" /><br />
+            Inspector: <input type="text" name="inspector" value="<%=tool.inspector%>" /><br />
+			<input type="submit" name="" value="Update Tool" />
 		</form>
 	</body>
 	</body>
