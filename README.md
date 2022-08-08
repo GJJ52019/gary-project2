@@ -56,5 +56,5 @@ https://gary-project2.herokuapp.com/
 ----------------------------------------------------------------------------------------------
 ### __FAR OFF Ideas__ 
 ----------------------------------------------------------------------------------------------
- Add hardwar functionality to be able to update the tools information with less input something like a scanner or qr code that updates cal dates and due dates. 
+ Add hardware functionality to be able to update the tools information with less input something like a scanner or qr code that updates cal dates and due dates. 
 ----------------------------------------------------------------------------------------------
