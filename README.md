@@ -50,7 +50,7 @@ https://gary-project2.herokuapp.com/
 ----------------------------------------------------------------------------------------------
 1. Would like to implement a way to add coloring indicating close to inpection due date or past it.
 
-2. implement image hosting so its clear to users quickly that they are holding teh correct tool 
+2. Implement image hosting so its clear to users quickly that they are holding the correct tool 
 
 3. Increase security
 ----------------------------------------------------------------------------------------------
